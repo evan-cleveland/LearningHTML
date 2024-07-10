@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <title>PyTriples</title>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+ 
+<style>
+      body {
+    margin: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, sans-serif;
+    background-color: #ffffff;
+  }
+
+  .triangle-left {
+	width: 300;
+	height: 300;
+	border-top: 25px solid transparent;
+	border-right: 50px solid #000000;
+	border-bottom: 25px solid transparent;
+    fill: white;
+}
+
+</style>
+ <body>
+    <div style = "display: flex; flex-direction: column; align-items: center;">
+            <h1 style = "justify-self: center;">IS YOUR TRIANGLE A TRIANGLE??????</h1>
+        <div class = "triangle-left"></div>
+        <div style = "display: flex; flex-direction: row; align-items: center;">
+            <h4>Length One:</h4><input type = "number" id = "l1"><h4>Length Two:</h4><input type = "number" id = "l2"><h4>Length Three:</h4><input type = "number" id = "l3">
+        </div>
+        <button id = "check">Check</button>
+        <h2 id = "result">Awaiting</h2>
+    </div>
+<script>
+       document.getElementById('l1').addEventListener('keydown', (event) => { if (event.key === 'Enter') { check(); }});
+    document.getElementById('l2').addEventListener('keydown', (event) => { if (event.key === 'Enter') { check(); }});
+    document.getElementById('l3').addEventListener('keydown', (event) => { if (event.key === 'Enter') { check(); }});
+    document.getElementById('check').addEventListener('click', (event) => { 
+        if ((document.getElementById('l1').value.trim() !== "") && (document.getElementById('l2').value.trim() !== "") && (document.getElementById('l3').value.trim() !== "")) {
+            check();
+        }
+    });
+
+    function check() {
+        const l1 = document.getElementById('l1').value;
+        const l2 = document.getElementById('l2').value;
+        const l3 = document.getElementById('l3').value;
+
+        if (l1 !== "" && l2 !== "" && l3 !== "") {
+            const nums = [parseFloat(l1), parseFloat(l2), parseFloat(l3)];
+            nums.sort((a, b) => a - b); // Sort in ascending order
+            const hyp = nums[2];
+            const mid = nums[1];
+            const short = nums[0];
+            if (hyp ** 2 === mid ** 2 + short ** 2) {
+                const update = hyp + ", " + mid + ", and " + short + " make a triangle!!!";
+                document.getElementById('result').textContent = update;
+            } else {
+                const update = hyp + ", " + mid + ", and " + short + " do not make a triangle :((((";
+                document.getElementById('result').textContent = update;
+            }
+            clearBox('l1');
+            clearBox('l2');
+            clearBox('l3');
+        }
+    }
+
+    function clearBox(id) {
+        document.getElementById(id).value = '';
+    }
+</script>
+ </body>
+ </html> 
